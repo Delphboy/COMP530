@@ -32,6 +32,7 @@ def main():
 
     if args.detect is not None:
         print("Detecting biofuels in " + args.detect)
+        detect(args.detect)
     elif args.train is not None:
         print("Training model based on dataset: " + args.train)
     elif args.test is not None:
