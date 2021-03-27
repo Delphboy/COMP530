@@ -7,6 +7,11 @@ Keep track of the project progress with the [Kanban Board](https://github.com/De
 
 Documentation can be found at: [/docs/README.md](/docs/README.md)
 
+## Installing Dependencies
+As we have a `requirements.txt`, the dependencies can be installed with:
+
+ `pip install -r requirements.txt`
+
 ## Contribution
  - Any PRs to the `master` branch require a code review from one other team member
  - Any PRs will undergo automated checks via GitHub Actions. These checks *must* pass before the PR can be merged. Current checks include:
