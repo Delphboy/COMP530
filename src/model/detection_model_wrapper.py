@@ -13,7 +13,7 @@ class ModelWrapper:
 
     def set_model(self, new_model):
         '''Allows the class to wrap a new model'''
-        __model = new_model
+        self.__model = new_model
 
 
     def detect(self, image):
@@ -21,6 +21,8 @@ class ModelWrapper:
             Parameters: image
             Returns: prediction and confidence
         """
+        model = self.__model # reference model to remove linting errors
+        print("Using model: " + model)
         class_label = "Not Set" + image
         confidence = 0.0
         return (class_label, confidence)
