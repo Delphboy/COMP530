@@ -3,10 +3,8 @@ import argparse
 import os
 import sys
 
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from model.detection_model_wrapper import ModelWrapper
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
 
 SUPPORTED_FILES = ['png', 'jpg', 'jpeg']
 
@@ -44,13 +42,13 @@ def main():
     elif args.gui is True:
         print("Start the GUI once it has been developed")
         app = QApplication(sys.argv)
-        w = QWidget()
-        b = QLabel(w)
-        b.setText("Hello World!")
-        w.setGeometry(100,100,200,50)
-        b.move(50,20)
-        w.setWindowTitle("PyQt5")
-        w.show()
+        window = QWidget()
+        message_label = QLabel(window)
+        message_label.setText("Hello World!")
+        window.setGeometry(100,100,200,50)
+        message_label.move(50,20)
+        window.setWindowTitle("PyQt5")
+        window.show()
         sys.exit(app.exec_())
 
 
