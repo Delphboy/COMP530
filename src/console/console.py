@@ -1,10 +1,30 @@
-"""A class to represent the console application"""
+"""A module to handle command line operations to represent the console application"""
 
-class Console:
-    """A class to represent the console application"""
-    def __init__(self, file_path):
-        super().__init__()
-        print(file_path)
+import os
 
-    def do_something(self):
-        print("I did it!")
+from model.detection_model_wrapper import ModelWrapper
+
+SUPPORTED_FILES = ['png', 'jpg', 'jpeg']
+
+def detect(path):
+    if not os.path.exists(path):
+        raise Exception("Please enter a valid file or directory path. Given:" + path)
+
+    if os.path.isfile(path):
+        prediction = get_prediction(path)
+        print(prediction)
+    else:
+        for file in os.listdir(path):
+            full_path = os.path.join(path, file)
+            prediction = get_prediction(full_path)
+            print(prediction)
+
+
+def get_prediction(file_path):
+    extension = os.path.splitext(file_path)[1]
+    extension = extension.replace('.', '')
+    if not extension in SUPPORTED_FILES:
+        return extension + " is not a supported file type"
+
+    model = ModelWrapper()
+    return model.detect(file_path)

@@ -4,9 +4,11 @@ import os
 import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
-from model.detection_model_wrapper import ModelWrapper
 
-SUPPORTED_FILES = ['png', 'jpg', 'jpeg']
+
+from console import console
+
+
 
 
 def main():
@@ -34,7 +36,7 @@ def main():
 
     if args.detect is not None:
         print("Detecting biofuels in " + args.detect)
-        detect(args.detect)
+        console.detect(args.detect)
     elif args.train is not None:
         print("Training model based on dataset: " + args.train)
     elif args.test is not None:
@@ -52,28 +54,7 @@ def main():
         sys.exit(app.exec_())
 
 
-def detect(path):
-    if not os.path.exists(path):
-        raise Exception("Please enter a valid file or directory path")
 
-    if os.path.isfile(path):
-        prediction = get_prediction(path)
-        print(prediction)
-    else:
-        for file in os.listdir(path):
-            full_path = os.path.join(path, file)
-            prediction = get_prediction(full_path)
-            print(prediction)
-
-
-def get_prediction(file_path):
-    extension = os.path.splitext(file_path)[1]
-    extension = extension.replace('.', '')
-    if not extension in SUPPORTED_FILES:
-        return extension + " is not a supported file type"
-
-    model = ModelWrapper()
-    return model.detect(file_path)
 
 
 if __name__ == "__main__":
