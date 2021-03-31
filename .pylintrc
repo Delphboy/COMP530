@@ -1,3 +1,4 @@
 [MESSAGE CONTROL]
 disable=
     C0116 # missing-function-docstring
+extension-pkg-whitelist=PyQt5 # Pylint doesn't load any C extensions by default, because those can run arbitrary code
