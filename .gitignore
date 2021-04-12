@@ -130,3 +130,7 @@ dmypy.json
 
 # VSCode gubbings
 .vscode/
+
+# Dataset mess around
+.playground/
+models/
