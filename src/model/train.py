@@ -11,14 +11,13 @@ from tensorflow.keras.layers import Flatten
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 
 
-def inception_v3_pipeline():
-    """Generates a InceptionV3 Model"""
+def pipeline_inception_v3():
+    """Generates a InceptionV3 Model and returns the model and performance metrics"""
     training_data_loc = ".playground/train"
     testing_data_loc = ".playground/test"
     data_generators = build_data_generators(training_data_loc, testing_data_loc)
     model = build_inception_v3_model()
-    output = train_inception_v3(data_generators[0], data_generators[1], model)
-    return output
+    return train_inception_v3(data_generators[0], data_generators[1], model)
 
 
 def build_inception_v3_model():
