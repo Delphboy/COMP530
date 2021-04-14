@@ -20,11 +20,11 @@ def detect(path):
             print(prediction)
 
 
-def get_prediction(file_path):
-    extension = os.path.splitext(file_path)[1]
+def get_prediction(image_location, model_path = "models/inceptionV3-1.h5"):
+    extension = os.path.splitext(image_location)[1]
     extension = extension.replace('.', '')
     if not extension in SUPPORTED_FILES:
         return extension + " is not a supported file type"
 
-    model = ModelWrapper()
-    return model.detect(file_path)
+    model = ModelWrapper(model_path)
+    return model.detect(image_location)

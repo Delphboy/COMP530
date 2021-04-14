@@ -10,6 +10,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 
+IMAGE_SIZE = [224,224]
 
 def pipeline_inception_v3():
     """Generates a InceptionV3 Model and returns the model and performance metrics"""
@@ -21,10 +22,9 @@ def pipeline_inception_v3():
 
 
 def build_inception_v3_model():
-    image_size = [224,224]
     class_label_count = 10
 
-    inception = InceptionV3(input_shape=image_size + [3],
+    inception = InceptionV3(input_shape=IMAGE_SIZE + [3],
                     weights= "imagenet",
                     include_top = False)
 
@@ -107,14 +107,16 @@ def build_data_generators(training_data, testing_data):
                                                 horizontal_flip = True)
 
     generated_training_data = training_data_generator.flow_from_directory(training_data,
-                                                target_size= (224,224),
+                                                target_size= IMAGE_SIZE,
                                                 batch_size = 15,
                                                 class_mode= 'categorical')
 
     test_data_generator = ImageDataGenerator(rescale = 1./255)
     generated_test_data = test_data_generator.flow_from_directory(testing_data,
-                                                target_size= (224,224),
+                                                target_size= IMAGE_SIZE,
                                                 batch_size = 15,
                                                 class_mode= 'categorical')
 
     return (generated_training_data, generated_test_data)
+
+pipeline_inception_v3()
