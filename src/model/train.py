@@ -118,5 +118,3 @@ def build_data_generators(training_data, testing_data):
                                                 class_mode= 'categorical')
 
     return (generated_training_data, generated_test_data)
-
-pipeline_inception_v3()
