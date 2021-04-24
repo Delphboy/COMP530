@@ -6,8 +6,8 @@ import json
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
 from PyQt5 import QtWidgets, uic
-from model import detect, train
 from PyQt5.QtWidgets import QTableWidgetItem
+from model import detect, train
 
 class InterfaceWrapper(QtWidgets.QMainWindow):
     """Provides a wrapper for the PyQt UI"""
@@ -61,7 +61,8 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
             is_safe_to_train = False
 
         if is_safe_to_train:
-            _, history = train.pipeline_inception_v3(self.train_dataset_location, self.train_ratio / 100)
+            ratio = self.train_ratio / 100
+            _, history = train.pipeline_inception_v3(self.train_dataset_location, ratio)
             # Refresh the model list
             self.models = self.load_model_names()
             self.populate_table_widget(history)
