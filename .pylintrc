@@ -5,6 +5,7 @@ disable=
 extension-pkg-whitelist=
     PyQt5,
 ignored-modules=
+    PyQt5,
     PyQt5.QtWidgets,
     tensorflow,
     tensorflow.keras.models,
