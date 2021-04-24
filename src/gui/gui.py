@@ -95,7 +95,8 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
         if is_safe_to_run:
             model_loc = os.path.join(os.getcwd(), "models", model_name)
-            detect.detect(self.run_data_location, model_loc)
+            results = detect.detect(self.run_data_location, model_loc)
+            self.display_detection_results(results)
 
     #Helper functions
     def load_model_names(self):
@@ -124,6 +125,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
             data = json.load(open(os.path.join(os.getcwd(), "models", file_name), 'r'))
             self.populate_table_widget(data)
 
+
     def populate_table_widget(self, data):
         headers = []
         self.tableWidget.setRowCount(10)
@@ -133,6 +135,22 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
             for column, item in enumerate(data[key]):
                 self.tableWidget.setItem(column, row, QTableWidgetItem(str(item)))
         self.tableWidget.setHorizontalHeaderLabels(headers)
+
+
+    def display_detection_results(self, results):
+        files = [i[0] for i in results]
+        predictions = [i[1] for i in results]
+        self.tableWidget.setRowCount(len(predictions))
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setHorizontalHeaderLabels(["File", "Prediction"])
+        count = 0
+        for item in files:
+            self.tableWidget.setItem(count, 0, QTableWidgetItem(item))
+            count += 1
+        count = 0
+        for item in predictions:
+            self.tableWidget.setItem(count, 1, QTableWidgetItem(item))
+            count += 1
 
 
 def show_gui():
