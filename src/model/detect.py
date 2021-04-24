@@ -4,6 +4,9 @@ import os
 import tensorflow as tf
 import numpy as np
 
+SUPPORTED_FILES = ['png', 'jpg', 'jpeg']
+
+
 class ModelWrapper:
     '''Provide a wrapper to the prediction model'''
     __model = None
@@ -33,3 +36,12 @@ class ModelWrapper:
         class_label = np.argmax(class_label, axis = 1)
         
         return class_label
+
+def get_prediction(image_location, model_path = "models/inceptionV3-1.h5"):
+    extension = os.path.splitext(image_location)[1]
+    extension = extension.replace('.', '')
+    if not extension in SUPPORTED_FILES:
+        return extension + " is not a supported file type"
+
+    model = ModelWrapper(model_path)
+    return model.detect(image_location)
