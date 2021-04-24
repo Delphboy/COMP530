@@ -3,11 +3,12 @@ disable=
     C0116 # missing-function-docstring
 # Pylint doesn't load any C extensions by default, because those can run arbitrary code
 extension-pkg-whitelist=
-    PyQt5
-    PyQt5.QtWidgets
-    tensorflow
-    tensorflow.keras.models
-    tensorflow.keras.layers
-    tensorflow.keras.applications.inception_v3
-    numpy
-    keras_preprocessing.image
+    PyQt5,
+ignored-modules=
+    PyQt5.QtWidgets,
+    tensorflow,
+    tensorflow.keras.models,
+    tensorflow.keras.layers,
+    tensorflow.keras.applications.inception_v3,
+    numpy,
+    keras_preprocessing.image,
