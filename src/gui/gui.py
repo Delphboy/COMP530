@@ -1,11 +1,13 @@
 """Module to hold the GUI functionality"""
 import sys
 import os
+import json
 
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
 from PyQt5 import QtWidgets, uic
 from model import detect, train
+from PyQt5.QtWidgets import QTableWidgetItem
 
 class InterfaceWrapper(QtWidgets.QMainWindow):
     """Provides a wrapper for the PyQt UI"""
@@ -29,6 +31,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
         self.btnRunModel.clicked.connect(self.run_model)
         self.btnSelectData.clicked.connect(self.select_data)
         self.sliderTrainTestSplit.valueChanged.connect(self.slider_moved)
+        self.cBoxSelectModel.currentTextChanged.connect(self.load_table_widget_data)
 
 
     def show_ui(self):
@@ -51,15 +54,18 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
     def train_model(self):
         """Use selected dataset to train a model"""
+        self.btnRunModel.setEnabled(False)
         is_safe_to_train = True
         if self.train_dataset_location == "" or self.train_dataset_location is None:
             print("select a dataset")
             is_safe_to_train = False
 
         if is_safe_to_train:
-            train.pipeline_inception_v3(self.train_dataset_location, self.train_ratio / 100)
+            _, history = train.pipeline_inception_v3(self.train_dataset_location, self.train_ratio / 100)
             # Refresh the model list
             self.models = self.load_model_names()
+            self.populate_table_widget(history)
+        self.btnRunModel.setEnabled(True)
 
 
     def select_data(self):
@@ -109,6 +115,23 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
         directory = askdirectory(initialdir=os.getcwd(), parent=root)
         root.destroy()
         return directory
+
+
+    def load_table_widget_data(self):
+        file_name = self.cBoxSelectModel.currentText().replace(".h5", "-history.json")
+        if os.path.exists(os.path.join(os.getcwd(), "models", file_name)):
+            data = json.load(open(os.path.join(os.getcwd(), "models", file_name), 'r'))
+            self.populate_table_widget(data)
+
+    def populate_table_widget(self, data):
+        headers = []
+        self.tableWidget.setRowCount(10)
+        self.tableWidget.setColumnCount(4)
+        for row, key in enumerate(sorted(data.keys())):
+            headers.append(key)
+            for column, item in enumerate(data[key]):
+                self.tableWidget.setItem(column, row, QTableWidgetItem(str(item)))
+        self.tableWidget.setHorizontalHeaderLabels(headers)
 
 
 def show_gui():

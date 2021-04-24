@@ -2,6 +2,7 @@
 import os
 import random
 import datetime
+import json
 
 from shutil import copy2, rmtree
 from keras_preprocessing.image import ImageDataGenerator
@@ -53,6 +54,7 @@ def train_inception_v3(train, test, model):
     )
     now = str(datetime.datetime.now()).split(".")[0].replace(" ", "-").replace(":","-")
     model.save("models/inceptionV3-" + now + ".h5")
+    json.dump(training_history.history, open("models/inceptionV3-" + now + "-history.json", 'w'))
     return (model, training_history.history)
 
 
