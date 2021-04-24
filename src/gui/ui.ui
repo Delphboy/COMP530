@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>30</y>
       <width>91</width>
       <height>23</height>
      </rect>
@@ -31,7 +31,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>10</y>
+      <y>30</y>
       <width>181</width>
       <height>20</height>
      </rect>
@@ -40,36 +40,11 @@
      <string>C:\ImagesDataset\</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>281</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>Select model type...</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>CNN</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>DNN</string>
-     </property>
-    </item>
-   </widget>
    <widget class="QSlider" name="sliderTrainTestSplit">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>80</y>
       <width>281</width>
       <height>22</height>
      </rect>
@@ -85,7 +60,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
+      <y>60</y>
       <width>281</width>
       <height>16</height>
      </rect>
@@ -98,7 +73,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>110</y>
       <width>281</width>
       <height>31</height>
      </rect>
@@ -117,7 +92,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="lblDatasetLocation_2">
+   <widget class="QLabel" name="lblDataLocation">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -127,7 +102,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>C:Imagestoevaluate</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSelectData">
@@ -154,6 +129,32 @@
     </property>
     <property name="text">
      <string>Run Model on Data</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblTrainTitle">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Train Model&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblRunTitle">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Run Model&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
