@@ -12,8 +12,9 @@ from tensorflow.keras.applications.inception_v3 import InceptionV3
 
 IMAGE_SIZE = [224,224]
 
-def pipeline_inception_v3():
+def pipeline_inception_v3(dataset_location, train_ratio=0.8):
     """Generates a InceptionV3 Model and returns the model and performance metrics"""
+    train_test_data_randomiser(dataset_location, train_ratio)
     training_data_loc = ".playground/train"
     testing_data_loc = ".playground/test"
     data_generators = build_data_generators(training_data_loc, testing_data_loc)

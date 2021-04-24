@@ -1,39 +1,114 @@
 """Module to hold the GUI functionality"""
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton
+import os
+
+from tkinter import Tk
+from tkinter.filedialog import askdirectory
 from PyQt5 import QtWidgets, uic
+from model import detect, train
 
 class InterfaceWrapper(QtWidgets.QMainWindow):
-    """Provides a wrapper for the UI"""
+    """Provides a wrapper for the PyQt UI"""
+
     def __init__(self):
         super(InterfaceWrapper, self).__init__()
+        self.train_ratio = 50
+        self.train_dataset_location = ""
+        self.run_data_location = ""
+        self.models = self.load_model_names()
+
+        # Load UI File
         uic.loadUi('src/gui/ui.ui', self)
+
+        # Populate Models
+        self.cBoxSelectModel.addItems(self.models)
 
         # Plumb UI events
         self.btnTrainModel.clicked.connect(self.train_model)
         self.btnSelectDataset.clicked.connect(self.select_dataset)
         self.btnRunModel.clicked.connect(self.run_model)
         self.btnSelectData.clicked.connect(self.select_data)
+        self.sliderTrainTestSplit.valueChanged.connect(self.slider_moved)
+
 
     def show_ui(self):
         """Show the UI"""
         self.show()
 
-    def run_model(self):
-        """Run a model on the selected data"""
-        print("I am going to run a model")
-
-    def select_data(self):
-        """Selected data to be evaluated by a trained model"""
-        print("I am going to open a popup box file dialogue")
-
-    def train_model(self):
-        """Use selected dataset to train a model"""
-        print("I am going to train a model")
 
     def select_dataset(self):
         """Selected dataset to be train a model"""
-        print("I am going to open a popup box file dialogue")
+        self.train_dataset_location = self.get_directory()
+        self.lblDatasetLocation.setText(self.train_dataset_location)
+
+
+    def slider_moved(self):
+        """Update the train/test split based on slider"""
+        self.train_ratio = self.sliderTrainTestSplit.value()
+        self.lblTrainTestSplit.setText(
+            "Train/Test Split - " + str(self.train_ratio) + ":" + str(100 - self.train_ratio))
+
+
+    def train_model(self):
+        """Use selected dataset to train a model"""
+        is_safe_to_train = True
+        if self.train_dataset_location == "" or self.train_dataset_location is None:
+            print("select a dataset")
+            is_safe_to_train = False
+
+        if is_safe_to_train:
+            train.pipeline_inception_v3(self.train_dataset_location, self.train_ratio / 100)
+            # Refresh the model list
+            self.models = self.load_model_names()
+
+
+    def select_data(self):
+        """Selected data to be evaluated by a trained model"""
+        self.run_data_location = self.get_directory()
+        self.lblDataLocation.setText(self.run_data_location)
+
+
+    def run_model(self):
+        """Run a model on the selected data"""
+        # Check: model file selected, data directory selected
+        # Make call
+        model_name = self.cBoxSelectModel.currentText()
+        is_safe_to_run = True
+        if len(self.models) < 1:
+            print("no models loaded")
+            is_safe_to_run = False
+
+        if model_name == "" or model_name is None:
+            print("Select a model")
+            is_safe_to_run = False
+
+        if self.run_data_location == "" or self.run_data_location is None:
+            print("Select some data!")
+            is_safe_to_run = False
+
+        if is_safe_to_run:
+            model_loc = os.path.join(os.getcwd(), "models", model_name)
+            detect.detect(self.run_data_location, model_loc)
+
+    #Helper functions
+    def load_model_names(self):
+        """Load a list of models found in the models directory
+            RETURNS: A list of .h5 files in the /models directory
+        """
+        location = os.path.join(os.getcwd(), "models")
+        models = [file for file in os.listdir(location) if file.endswith(".h5")]
+        return models
+
+
+    def get_directory(self):
+        """Use the OS directory selection to get a directory
+            RETURNS: directory selected by the user
+        """
+        root = Tk()
+        root.withdraw()
+        directory = askdirectory(initialdir=os.getcwd(), parent=root)
+        root.destroy()
+        return directory
 
 
 def show_gui():

@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>C:\ImagesDataset\</string>
+     <string>Select training dataset</string>
     </property>
    </widget>
    <widget class="QSlider" name="sliderTrainTestSplit">
@@ -102,7 +102,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>C:Imagestoevaluate</string>
+     <string>Select dataset to run model on</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSelectData">
