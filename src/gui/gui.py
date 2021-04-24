@@ -120,6 +120,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
 
     def load_table_widget_data(self):
+        """Loads the training history of a model into the table view"""
         file_name = self.cBoxSelectModel.currentText().replace(".h5", "-history.json")
         if os.path.exists(os.path.join(os.getcwd(), "models", file_name)):
             data = json.load(open(os.path.join(os.getcwd(), "models", file_name), 'r'))
@@ -127,8 +128,9 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
 
     def populate_table_widget(self, data):
+        """Populates the table view with training history"""
         headers = []
-        self.tableWidget.setRowCount(10)
+        self.tableWidget.setRowCount(9)
         self.tableWidget.setColumnCount(4)
         for row, key in enumerate(sorted(data.keys())):
             headers.append(key)
@@ -138,6 +140,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
 
     def display_detection_results(self, results):
+        """Displays the detection results in the table view"""
         files = [i[0] for i in results]
         predictions = [i[1] for i in results]
         self.tableWidget.setRowCount(len(predictions))
@@ -154,6 +157,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
 
 def show_gui():
+    """Creates an instance of the UI and displays it"""
     app = QtWidgets.QApplication(sys.argv)
     user_interface = InterfaceWrapper()
     user_interface.show()
