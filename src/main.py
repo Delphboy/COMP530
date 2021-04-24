@@ -2,7 +2,7 @@
 import argparse
 
 from gui import gui
-from console import console
+from model import detect
 
 def main():
     parser = argparse.ArgumentParser(
@@ -29,7 +29,7 @@ def main():
 
     if args.detect is not None:
         print("Detecting biofuels in " + args.detect)
-        console.detect(args.detect)
+        detect.detect(args.detect)
     elif args.train is not None:
         print("Training model based on dataset: " + args.train)
     elif args.test is not None:
