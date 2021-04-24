@@ -15,6 +15,15 @@ class ModelWrapper:
         loc = os.path.join(os.getcwd(), model_location)
         self.__model = tf.keras.models.load_model(loc, compile=True)
 
+
+    def get_model(self):
+        return self.__model
+
+
+    def set_mode(self, new_model):
+        self.__model = new_model
+
+
     def detect(self, image_location):
         """Detects the biofuel type in a given image
             Parameters: image
