@@ -17,7 +17,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
         self.train_ratio = 50
         self.train_dataset_location = ""
         self.run_data_location = ""
-        self.models = self.load_model_names()
+        self.models = load_model_names()
 
         # Load UI File
         uic.loadUi('src/gui/ui.ui', self)
@@ -99,26 +99,6 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
             self.display_detection_results(results)
 
     #Helper functions
-    def load_model_names(self):
-        """Load a list of models found in the models directory
-            RETURNS: A list of .h5 files in the /models directory
-        """
-        location = os.path.join(os.getcwd(), "models")
-        models = [file for file in os.listdir(location) if file.endswith(".h5")]
-        return models
-
-
-    def get_directory(self):
-        """Use the OS directory selection to get a directory
-            RETURNS: directory selected by the user
-        """
-        root = Tk()
-        root.withdraw()
-        directory = askdirectory(initialdir=os.getcwd(), parent=root)
-        root.destroy()
-        return directory
-
-
     def load_table_widget_data(self):
         """Loads the training history of a model into the table view"""
         file_name = self.cBoxSelectModel.currentText().replace(".h5", "-history.json")
@@ -162,3 +142,23 @@ def show_gui():
     user_interface = InterfaceWrapper()
     user_interface.show()
     app.exec_()
+
+
+def load_model_names():
+    """Load a list of models found in the models directory
+        RETURNS: A list of .h5 files in the /models directory
+    """
+    location = os.path.join(os.getcwd(), "models")
+    models = [file for file in os.listdir(location) if file.endswith(".h5")]
+    return models
+
+
+def get_directory():
+    """Use the OS directory selection to get a directory
+        RETURNS: directory selected by the user
+    """
+    root = Tk()
+    root.withdraw()
+    directory = askdirectory(initialdir=os.getcwd(), parent=root)
+    root.destroy()
+    return directory
