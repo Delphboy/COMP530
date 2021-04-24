@@ -13,7 +13,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
     """Provides a wrapper for the PyQt UI"""
 
     def __init__(self):
-        super(InterfaceWrapper, self).__init__()
+        super().__init__()
         self.train_ratio = 50
         self.train_dataset_location = ""
         self.run_data_location = ""
