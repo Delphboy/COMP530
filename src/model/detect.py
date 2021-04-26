@@ -13,6 +13,8 @@ class ModelWrapper:
     def __init__(self, model_location):
         super().__init__()
         loc = os.path.join(os.getcwd(), model_location)
+        if not os.path.exists(loc):
+            raise Exception("No model can be found at location: " + loc)
         self.__model = tf.keras.models.load_model(loc, compile=True)
 
 
