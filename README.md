@@ -8,17 +8,29 @@ Keep track of the project progress with the [Kanban Board](https://github.com/De
 
 Documentation can be found at: [/docs/README.md](/docs/README.md)
 
-## Installing Dependencies
+## Setup Guide
 
-As we have a `requirements.txt`, the dependencies can be installed with:
+Ensure you have [Git LFS](https://git-lfs.github.com/) and [TensorFlow](https://www.tensorflow.org/install) installed. The project is written in Python 3.7.
 
- `pip install -r requirements.txt`
+Clone the project: `git clone https://github.com/Delphboy/COMP530.git`
+
+Navigate to the project root: `cd COMP530`
+
+Install dependencies: `pip install -r requirements.txt`
+
+## Running The Project
+
+The project can be operated from a UI or via the command line via a CLI.
+
+- **Recommended:** Running the UI: `python src/main.py --gui`
+- Training a model via the CLI: `python src/main.py --train <directory of training set>`
+- Running an existing model on the dataset `python src/main.py --detect <directory or image to be evaluated>`
+
 
 ## Contribution
 
 - Any PRs to the `master` branch require a code review from one other team member
-- Any PRs will undergo automated checks via GitHub Actions. These checks *must* pass before the PR can be merged. Current checks include:
-    - Python code linting with PyLint
+- Any PRs will undergo automated linting checks via GitHub Actions. These checks *must* pass before the PR can be merged.
 
 ## Team Members
 
