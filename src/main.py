@@ -1,10 +1,12 @@
 """Entry point for the console application"""
 import argparse
+import os
 
 from gui import gui
-from model import detect
+from model import detect, train
 
 def main():
+    setup_file_system()
     parser = argparse.ArgumentParser(
         description=
         """Train biofuel detection models, test biofuel detection models,
@@ -32,10 +34,21 @@ def main():
         detect.detect(args.detect)
     elif args.train is not None:
         print("Training model based on dataset: " + args.train)
-    elif args.test is not None:
-        print("Testing model based on dataset: " + args.test)
+        if os.path.exists(args.train):
+            train.pipeline_inception_v3(args.train)
+        else:
+            print("The path: " + args.train + " does not exist")
     elif args.gui is True:
         gui.show_gui()
+
+
+def setup_file_system():
+    """Ensure the models and .playground folders exist to prevent crash on startup"""
+    if not os.path.exists(os.path.join(os.getcwd(), "models")):
+        os.makedirs(os.path.join(os.getcwd(), "models"))
+
+    if not os.path.exists(os.path.join(os.getcwd(), ".playground")):
+        os.makedirs(os.path.join(os.getcwd(), ".playground"))
 
 
 if __name__ == "__main__":
