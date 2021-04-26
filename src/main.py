@@ -14,13 +14,14 @@ def main():
     )
     parser.add_argument("-d", "--detect",
         help="Takes an image file and detects possible biofuel sources",
-        action="store"
+        action="store",
+        nargs=2,
+        metavar=("model_location", "detect_src")
     )
     parser.add_argument("-t", "--train",
-        help="Takes a training dataset and trains a model"
-    )
-    parser.add_argument("-T", "--test",
-        help="Takes a test dataset and evaluates the model"
+        help="Takes a training dataset and trains a model",
+        nargs=2,
+        metavar=("dataset_location", "train_ratio")
     )
     parser.add_argument("-g", "--gui",
         help="Run a graphical user interface",
@@ -30,14 +31,14 @@ def main():
     args = parser.parse_args()
 
     if args.detect is not None:
-        print("Detecting biofuels in " + args.detect)
-        detect.detect(args.detect)
+        print("Detecting biofuels in " + args.detect[1] + " using model " + args.detect[0])
+        detect.detect(args.detect[1], args.detect[0])
     elif args.train is not None:
-        print("Training model based on dataset: " + args.train)
-        if os.path.exists(args.train):
-            train.pipeline_inception_v3(args.train)
+        print("Training model based on dataset: " + args.train[0])
+        if os.path.exists(args.train[0]) and float(args.train[1]) < 1:
+            train.pipeline_inception_v3(args.train[0], float(args.train[1]))
         else:
-            print("The path: " + args.train + " does not exist")
+            print("Ensure the path: " + args.train + " exists and that train ratio < 1")
     elif args.gui is True:
         gui.show_gui()
 

@@ -23,9 +23,8 @@ Install dependencies: `pip install -r requirements.txt`
 The project can be operated from a UI or via the command line via a CLI.
 
 - **Recommended:** Running the UI: `python src/main.py --gui`
-- Training a model via the CLI: `python src/main.py --train <directory of training set>`
-- Running an existing model on the dataset `python src/main.py --detect <directory or image to be evaluated>`
-
+- Running an existing model on the dataset via the CLI: `python src/main.py --detect <location of the model .h5 file> <directory of training set>`
+- Training a model via the CLI `python src/main.py --train <directory of dataset> <train ratio>` Where the train ratio is: 0 < train ratio < 1.
 
 ## Contribution
 
