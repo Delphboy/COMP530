@@ -20,7 +20,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
         self.models = load_model_names()
 
         # Load UI File
-        uic.loadUi('src/gui/ui.ui', self)
+        uic.loadUi(os.path.join(os.getcwd(), 'src/gui/ui.ui'), self)
 
         # Populate Models
         self.cBoxSelectModel.addItems(self.models)
