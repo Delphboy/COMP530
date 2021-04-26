@@ -41,7 +41,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
     def select_dataset(self):
         """Selected dataset to be train a model"""
-        self.train_dataset_location = self.get_directory()
+        self.train_dataset_location = get_directory()
         self.lblDatasetLocation.setText(self.train_dataset_location)
 
 
@@ -71,7 +71,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
     def select_data(self):
         """Selected data to be evaluated by a trained model"""
-        self.run_data_location = self.get_directory()
+        self.run_data_location = get_directory()
         self.lblDataLocation.setText(self.run_data_location)
 
 
