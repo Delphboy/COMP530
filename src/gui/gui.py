@@ -64,7 +64,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
             ratio = self.train_ratio / 100
             _, history = train.pipeline_inception_v3(self.train_dataset_location, ratio)
             # Refresh the model list
-            self.models = self.load_model_names()
+            self.models = load_model_names()
             self.populate_table_widget(history)
         self.btnRunModel.setEnabled(True)
 
