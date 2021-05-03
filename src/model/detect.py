@@ -83,16 +83,16 @@ def get_prediction(image_location, model_path):
         The class label of the biofuel detected
     """
     classes = ["not biofuel",
-                "beetroot",
-                "coconut",
-                "corn",
-                "palm",
-                "potato",
-                "rice",
-                "soybean",
-                "sugarcane",
-                "sunflow",
-                "wood chip"]
+                "biofuel - beetroot",
+                "biofuel - coconut",
+                "biofuel - corn",
+                "biofuel - palm",
+                "biofuel - potato",
+                "biofuel - rice",
+                "biofuel - soybean",
+                "biofuel - sugarcane",
+                "biofuel - sunflow",
+                "biofuel - wood chip"]
     extension = os.path.splitext(image_location)[1]
     extension = extension.replace('.', '')
     if not extension.lower() in SUPPORTED_FILES:
