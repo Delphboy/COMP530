@@ -24,7 +24,7 @@ def pipeline_inception_v3(dataset_location, train_ratio=0.8):
 
 
 def build_inception_v3_model():
-    class_label_count = 10
+    class_label_count = 11
 
     inception = InceptionV3(input_shape=IMAGE_SIZE + [3],
                     weights= "imagenet",
@@ -63,6 +63,7 @@ def train_test_data_randomiser(dataset_location, train_ratio=0.8):
     os.mkdir(".playground")
     os.mkdir(".playground/test")
     os.mkdir(".playground/train")
+    os.mkdir(".playground/train/Non_Biofuel")
     os.mkdir(".playground/train/beetroot")
     os.mkdir(".playground/train/coconut")
     os.mkdir(".playground/train/corn")
@@ -73,6 +74,7 @@ def train_test_data_randomiser(dataset_location, train_ratio=0.8):
     os.mkdir(".playground/train/sugarcane")
     os.mkdir(".playground/train/sunflower")
     os.mkdir(".playground/train/wood-chip")
+    os.mkdir(".playground/test/Non_Biofuel")
     os.mkdir(".playground/test/beetroot")
     os.mkdir(".playground/test/coconut")
     os.mkdir(".playground/test/corn")
@@ -104,18 +106,24 @@ def train_test_data_randomiser(dataset_location, train_ratio=0.8):
 
 
 def build_data_generators(training_data, testing_data):
-    training_data_generator = ImageDataGenerator(rescale = 1./255,
-                                                shear_range = 0.2,
-                                                zoom_range = 0.2,
-                                                horizontal_flip = True)
+    training_data_generator = ImageDataGenerator(validation_split = 0.2,
+                                                    rescale = 1./255,
+                                                    shear_range = 0.2,
+                                                    zoom_range = 0.2,
+                                                    horizontal_flip = True,
+                                                    fill_mode = 'reflect')
 
     generated_training_data = training_data_generator.flow_from_directory(training_data,
+                                                subset = 'training',
+                                                seed = 132,
                                                 target_size= IMAGE_SIZE,
                                                 batch_size = 15,
                                                 class_mode= 'categorical')
 
     test_data_generator = ImageDataGenerator(rescale = 1./255)
     generated_test_data = test_data_generator.flow_from_directory(testing_data,
+                                                subset = 'training',
+                                                seed = 132,
                                                 target_size= IMAGE_SIZE,
                                                 batch_size = 15,
                                                 class_mode= 'categorical')
