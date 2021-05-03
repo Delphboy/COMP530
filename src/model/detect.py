@@ -82,7 +82,8 @@ def get_prediction(image_location, model_path):
     Returns:
         The class label of the biofuel detected
     """
-    classes = ["beetroot",
+    classes = ["not biofuel",
+                "beetroot",
                 "coconut",
                 "corn",
                 "palm",
