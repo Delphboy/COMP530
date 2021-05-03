@@ -13,6 +13,8 @@ class ModelWrapper:
     def __init__(self, model_location):
         super().__init__()
         loc = os.path.join(os.getcwd(), model_location)
+        if not os.path.exists(loc):
+            raise Exception("No model can be found at location: " + loc)
         self.__model = tf.keras.models.load_model(loc, compile=True)
 
 
@@ -80,16 +82,17 @@ def get_prediction(image_location, model_path):
     Returns:
         The class label of the biofuel detected
     """
-    classes = ["beetroot",
-                "coconut",
-                "corn",
-                "palm",
-                "potato",
-                "rice",
-                "soybean",
-                "sugarcane",
-                "sunflow",
-                "wood chip"]
+    classes = ["not biofuel",
+                "biofuel - beetroot",
+                "biofuel - coconut",
+                "biofuel - corn",
+                "biofuel - palm",
+                "biofuel - potato",
+                "biofuel - rice",
+                "biofuel - soybean",
+                "biofuel - sugarcane",
+                "biofuel - sunflow",
+                "biofuel - wood chip"]
     extension = os.path.splitext(image_location)[1]
     extension = extension.replace('.', '')
     if not extension.lower() in SUPPORTED_FILES:

@@ -20,7 +20,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
         self.models = load_model_names()
 
         # Load UI File
-        uic.loadUi('src/gui/ui.ui', self)
+        uic.loadUi(os.path.join(os.getcwd(), 'src/gui/ui.ui'), self)
 
         # Populate Models
         self.cBoxSelectModel.addItems(self.models)
@@ -41,7 +41,7 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
 
     def select_dataset(self):
         """Selected dataset to be train a model"""
-        self.train_dataset_location = self.get_directory()
+        self.train_dataset_location = get_directory()
         self.lblDatasetLocation.setText(self.train_dataset_location)
 
 
@@ -64,14 +64,14 @@ class InterfaceWrapper(QtWidgets.QMainWindow):
             ratio = self.train_ratio / 100
             _, history = train.pipeline_inception_v3(self.train_dataset_location, ratio)
             # Refresh the model list
-            self.models = self.load_model_names()
+            self.models = load_model_names()
             self.populate_table_widget(history)
         self.btnRunModel.setEnabled(True)
 
 
     def select_data(self):
         """Selected data to be evaluated by a trained model"""
-        self.run_data_location = self.get_directory()
+        self.run_data_location = get_directory()
         self.lblDataLocation.setText(self.run_data_location)
 
 
