@@ -6,7 +6,7 @@ The aim of this project is to develop a desktop application that is capable of d
 
 Keep track of the project progress with the [Kanban Board](https://github.com/Delphboy/COMP530/projects/1)
 
-Documentation can be found at: [/docs/README.md](/docs/README.md)
+Technical documentation can be found at [docs/technical.md](/docs/technical.md) and user documentation can be found at [docs/user.md](/docs/user.md).
 
 ## Setup Guide
 
@@ -36,6 +36,6 @@ The project can be operated from a UI or via the command line via a CLI.
 - [Bharathkumar Ayyadurai](https://github.com/BharathKumar)
 - [Sai Saranya Donthukurthi](https://github.com/Sai-SaranyaD)
 - [Guo Li](https://github.com/ronan1028)
-- [Zhiying Li]
+- [Zhiying Li](https://github.com/ZhiyingLi-123)
 - [Susanthi Mandalapu](https://github.com/SusanthiMandalapu)
 - [Henry Senior](https://github.com/Delphboy)
